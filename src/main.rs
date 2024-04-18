@@ -61,13 +61,14 @@ struct GlobalArgs {
     #[structopt(long = "port", default_value = "8080", env = "PORT")]
     port: u16,
 
-    /// Encryption key to use.
+    /// Encryption key to use. If not specified, then objects are *not*
+    /// encrypted.
     #[structopt(
         long = "key",
         parse(try_from_str = FromHex::from_hex),
         env = "RUDOLFS_KEY"
     )]
-    key: [u8; 32],
+    key: Option<[u8; 32]>,
 
     /// Root directory of the object cache. If not specified or if the local
     /// disk is the storage backend, then no local disk cache will be used.
